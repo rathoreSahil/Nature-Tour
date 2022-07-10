@@ -1,7 +1,12 @@
+const Tour = require('./../models/tourModel');
+
 module.exports = {
-  overview: function (req, res) {
+  overview: async function (req, res) {
+    const tours = await Tour.find();
+
     res.render('overview', {
       title: 'Overview',
+      tours,
     });
   },
   tour: function (req, res) {

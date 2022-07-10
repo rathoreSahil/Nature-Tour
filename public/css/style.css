@@ -1075,6 +1075,7 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 7rem;
+  padding: 2rem 0.5rem;
 }
 
 .card {
@@ -1322,4 +1323,11 @@ body {
   -webkit-transform: translateY(-2px);
   transform: translateY(-2px);
 }
-
+.github,
+.github:hover,
+.github:active,
+.github:visited {
+  text-decoration: none;
+  color: #777;
+font-weight: bold;
+}
