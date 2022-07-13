@@ -11,8 +11,11 @@ module.exports = {
     // res.status(200).json(tours);
   },
   tour: async function (req, res) {
-    const currTour = await Tour.findOne({ slug: req.params.slug });
-    console.log(currTour.guides[0].name);
+    const currTour = await Tour.findOne({ slug: req.params.slug }).populate({
+      path: 'reviews',
+      fields: 'review rating user',
+    });
+
     res.render('tour.ejs', { tour: currTour });
   },
 };
