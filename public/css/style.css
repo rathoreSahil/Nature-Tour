@@ -1,6 +1,7 @@
 :root {
   --section-rotate: 9vw;
-  --color-dark:#071e33;
+  --color-dark: #071e33;
+  --color-dark-secondary:#133452;
 }
 
 ::-moz-selection {
@@ -29,6 +30,7 @@ html {
 }
 
 body {
+  background-color: var(--color-dark);
   /* background-color: var(--color-dark); */
   line-height: 1.6;
   font-weight: 300;
@@ -402,6 +404,12 @@ body {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+  background-image: linear-gradient(to right, #7dd56f, #28b487);
+  padding: 0.5rem 0;
+  border-radius: 10px;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
 }
 .heading-box__detail {
   font-size: 1.5rem;
@@ -504,7 +512,6 @@ body {
 }
 
 .section-pictures {
-  
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -799,7 +806,7 @@ body {
 }
 
 .footer {
-  background-color: #f7f7f7;
+  background-color: var(--color-dark-secondary);
   padding: 6rem 4rem 3rem 4rem;
   font-size: 1.4rem;
   display: grid;
@@ -839,7 +846,7 @@ body {
   margin-left: 1.5rem;
 }
 .footer__nav a {
-  color: #777;
+  color: #fff;
   text-decoration: none !important;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
@@ -1083,11 +1090,14 @@ body {
 }
 
 .card {
-  border-radius: 3px;
+  border-radius: 10px;
+  box-shadow: 0 10px 50px 25px black;
+
+  /* border-radius: 3px; */
   overflow: hidden;
   -webkit-box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.1);
   box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  background-color:var(--color-dark-secondary);
   -webkit-transition: 0.3s all;
   transition: 0.3s all;
   -webkit-backface-visibility: hidden;
@@ -1102,6 +1112,7 @@ body {
 }
 .card__header {
   position: relative;
+  background-color: var(--color-dark-secondary);
 }
 .card__picture {
   position: relative;
@@ -1113,7 +1124,7 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  
+
   opacity: 0.7;
 }
 .card__picture-img {
@@ -1123,6 +1134,8 @@ body {
   width: 100%;
 }
 .card__details {
+  background-color: var(--color-dark-secondary);
+
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-row-gap: 1.75rem;
@@ -1134,8 +1147,10 @@ body {
   text-transform: uppercase;
   font-weight: 700;
   grid-column: 1 / -1;
+  color: #28b487;
 }
 .card__text {
+  color: #fff;
   grid-column: 1 / -1;
   font-size: 1.5rem;
   font-style: italic;
@@ -1143,6 +1158,7 @@ body {
   margin-bottom: 0.75rem;
 }
 .card__data {
+  color: #fff;
   font-size: 1.3rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1160,7 +1176,7 @@ body {
   fill: #55c57a;
 }
 .card__footer {
-  background-color: #f7f7f7;
+  background-color: var(--color-dark-secondary);
   padding: 2.5rem 3rem;
   border-top: 1px solid #f1f1f1;
   font-size: 1.4rem;
@@ -1172,9 +1188,10 @@ body {
 }
 .card__footer-value {
   font-weight: 700;
+  color: #28b487;
 }
 .card__footer-text {
-  color: #999;
+  color: #fff;
 }
 .card__ratings {
   grid-row: 2 / 3;
@@ -1325,6 +1342,6 @@ body {
 .github:active,
 .github:visited {
   text-decoration: none;
-  color: #777;
-font-weight: bold;
+  color: #fff;
+  font-weight: bold;
 }
