@@ -13,6 +13,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const app = express();
+const cookieParser = require('cookie-parser');
 
 // app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -21,7 +22,12 @@ app.set('views', path.join(__dirname, 'views'));
 // MIDDLEWARES
 
 app.use(express.json());
+app.use(cookieParser());
 
+app.use((req, res, next) => {
+  req.user = undefined;
+  next();
+});
 // data sanitization against NoSql query injection
 app.use(mongoSanitize());
 
@@ -51,7 +57,7 @@ const limiter = rateLimit({
   message: 'too many requests from this IP,try again later',
 });
 
-app.use(helmet());
+// app.use(helmet());
 app.use('/api', limiter);
 
 // ROUTING

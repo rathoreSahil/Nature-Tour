@@ -23,7 +23,7 @@ const createSendToken = (user, statusCode, res) => {
   res.cookie('jwt', token, cookieOptions);
 
   res.status(statusCode).json({
-    status: statusCode,
+    status: 'success',
     token,
     data: user,
   });
@@ -82,6 +82,38 @@ exports.protect = async (req, res, next) => {
       message: err,
     });
   }
+};
+
+exports.isLoggedIn = async (req, res, next) => {
+  console.log(req.cookies);
+  if (req.cookies) {
+    try {
+      // 2)Verification of token
+      const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+      );
+
+      // 3)Check if user still exists
+      const currentUser = await User.findById(decoded.id);
+      if (!currentUser) {
+        return next();
+      }
+
+      // 4) Check if user changed password after the token was issued
+      if (currentUser.changedPasswordAfter(decoded.iat)) {
+        return next();
+      }
+
+      // 5) Grant access
+      res.locals.user = currentUser;
+      req.user = currentUser;
+      return next();
+    } catch (err) {
+      return next();
+    }
+  }
+  next();
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
