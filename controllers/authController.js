@@ -85,7 +85,7 @@ exports.protect = async (req, res, next) => {
 };
 
 exports.isLoggedIn = async (req, res, next) => {
-  console.log(req.cookies);
+  // console.log(req.cookies);
   if (req.cookies) {
     try {
       // 2)Verification of token
@@ -154,6 +154,25 @@ exports.login = async (req, res, next) => {
     });
   }
 };
+
+exports.logout = async (req,res,next) => {
+try{
+  res.cookie('jwt','loggedOut',{
+    expires: new Date(
+      Date.now() + 10000
+    ),
+    httpOnly: true,
+  });
+  res.status(200).json({
+    status:'success',
+  })
+}catch(err){
+  res.status(400).json({
+    status: 'fail',
+    message: err,
+  });
+}
+}
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {

@@ -14,13 +14,13 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const app = express();
 const cookieParser = require('cookie-parser');
-
+// const bodyParser = require('body-parser');
 // app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // MIDDLEWARES
-
+// app.use(bodyParser());
 app.use(express.json());
 app.use(cookieParser());
 
@@ -56,9 +56,15 @@ const limiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   message: 'too many requests from this IP,try again later',
 });
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
 
 // app.use(helmet());
 app.use('/api', limiter);
+app.use((req, res, next) => {
+  res.locals.user = undefined;
+  next();
+});
 
 // ROUTING
 app.use('/', viewRouter);

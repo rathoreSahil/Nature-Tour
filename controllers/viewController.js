@@ -21,4 +21,6 @@ module.exports = {
   getLoginForm: async (req, res) => {
     res.status(200).render('login.ejs');
   },
+
+
 };
