@@ -1,5 +1,5 @@
 document.querySelector('#logoutUser').addEventListener('click', () => {
-  console.log('Hello');
+  // console.log('Hello');
   logout();
 });
 
@@ -21,7 +21,7 @@ const logout = async () => {
       method: 'GET',
       url: 'api/v1/users/logout',
     });
-    console.log(axiosResponse.data);
+    // console.log(axiosResponse.data);
     if (axiosResponse.data.status === 'success') {
       showAlert('success', 'Logged Out');
       window.setTimeout(() => {

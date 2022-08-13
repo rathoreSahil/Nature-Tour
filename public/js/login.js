@@ -1,6 +1,6 @@
 // const { default: axios } = require("axios");
 
-document.querySelector('.form').addEventListener('submit', (event) => {
+document.querySelector('.form-login').addEventListener('submit', (event) => {
   event.preventDefault();
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;

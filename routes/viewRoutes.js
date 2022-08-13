@@ -6,5 +6,6 @@ router.use(authController.isLoggedIn);
 router.get('/', viewController.overview);
 router.get('/tour/:slug', viewController.tour);
 router.get('/login', viewController.getLoginForm);
-
+router.get('/me', authController.protect, viewController.getMyAccountPage);
+router.post('/me', authController.protect, viewController.updateUser);
 module.exports = router;
