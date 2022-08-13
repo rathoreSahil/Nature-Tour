@@ -22,7 +22,9 @@ const login = async (email, password) => {
 
     if (axiosResponse.data.status === 'success') {
       showAlert('success', 'Logged in Succesfully!');
-      location.reload(true);
+      window.setTimeout(() => {
+        location.assign('/');
+      }, 500);
     }
   } catch (err) {
     console.log(err);
