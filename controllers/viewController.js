@@ -30,14 +30,13 @@ module.exports = {
 
   updateUser: async (req, res) => {
     try {
-      const updatedUser = await User.findByIdAndUpdate(
-        req.user.id,
-        { email: req.body.email, name: req.body.name },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
+      const upd = { email: req.body.email, name: req.body.name};
+      if (req.file) upd.photo = req.file.filename;
+
+      const updatedUser = await User.findByIdAndUpdate(req.user.id, upd, {
+        new: true,
+        runValidators: true,
+      });
       res.status(200).render('account', { user: updatedUser });
     } catch (err) {
       console.log(err);

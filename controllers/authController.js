@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const AppError = require('./../utils/appError');
 const { promisify } = require('util');
-const sendEmail = require('./../utils/email');
+const Email = require('./../utils/email');
 const crypto = require('crypto');
 
 const createSendToken = (user, statusCode, res) => {
@@ -38,6 +38,7 @@ const signToken = (id) => {
 exports.protect = async (req, res, next) => {
   try {
     // 1)getting token and check if its there
+    // console.log(req.headers.authorization);
     let token;
     if (
       req.headers.authorization &&
@@ -123,6 +124,9 @@ exports.signup = catchAsync(async (req, res, next) => {
     passwordConfirm: req.body.passwordConfirm,
   });
 
+  const url = `${req.protocol}://${req.get('host')}/me`;
+  await new Email(newUser, url).sendWelcome();
+
   createSendToken(newUser, 201, res);
 });
 
@@ -205,13 +209,15 @@ exports.forgotPassword = async (req, res, next) => {
       'host'
     )}/api/v1/users/resetPassword/${resetToken}`;
 
-    const message = `ye le bsdk ${resetURL}`;
+    const message = `To reset the password Click on this URL :  ${resetURL}`;
     try {
-      await sendEmail({
-        email: user.email,
-        subject: 'password reset token',
-        text: message,
-      });
+      // await sendEmail({
+      //   email: user.email,
+      //   subject: 'password reset token',
+      //   text: message,
+      // });
+
+      await new Email(user,resetURL).sendPasswordReset()
 
       res.status(200).json({
         status: 'success',
@@ -224,7 +230,7 @@ exports.forgotPassword = async (req, res, next) => {
 
       return res.status(403).json({
         status: 'fail',
-        message: 'please try again',
+        message: err,
       });
     }
   } catch (err) {

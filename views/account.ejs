@@ -86,7 +86,7 @@
               class="form form-user-data"
               action="/me"
               method="post"
-              enctype="application/x-www-form-urlencoded"
+              enctype="multipart/form-data"
             >
               <div class="form__group">
                 <label class="form__label" for="name">Name</label
@@ -115,7 +115,15 @@
                   class="form__user-photo"
                   src="img/users/<%= user.photo %>"
                   alt="User photo"
-                /><a class="btn-text" href="">Choose new photo</a>
+                />
+                <input
+                  type="file"
+                  accept="image/*"
+                  name="photo"
+                  class="form__upload"
+                  id="photo"
+                />
+                <label for="photo">Choose New Photo</label>
               </div>
               <div class="form__group right">
                 <button class="btn btn--small btn--green">Save settings</button>
