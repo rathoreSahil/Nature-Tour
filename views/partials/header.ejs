@@ -21,12 +21,17 @@
     </a> -->
     <%if(user){%>
     <button class="nav__el nav__el--logout" id="logoutUser">Log out</button>
-    <a class="nav__el" href="/me"
-      ><img
+    <a class="nav__el" href="/me">
+      <%if(user.photo.startsWith("https")){%>
+      <img class="nav__user-img" src="<%=user.photo%>" alt="<%=user.name%>" />
+      <%} else {%>
+      <img
         class="nav__user-img"
         src="/img/users/<%=user.photo%>"
         alt="<%=user.name%>"
       />
+
+      <%}%>
       <span><%=user.name.split(' ')[0]%></span>
     </a>
     <script
@@ -39,6 +44,7 @@
     <%} else{%>
     <a class="nav__el" href="/login">Log in</a>
     <a class="nav__el nav__el--cta" href="#">Sign up</a>
+    <a href="/oauth/login/google" style="color: white">Google Login</a>
     <%}%>
   </nav>
 </header>

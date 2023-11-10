@@ -111,11 +111,20 @@
                 />
               </div>
               <div class="form__group form__photo-upload">
+                <%if(user.photo.startsWith("https")){%>
                 <img
                   class="form__user-photo"
-                  src="img/users/<%= user.photo %>"
-                  alt="User photo"
+                  src="<%=user.photo%>"
+                  alt="User name"
                 />
+                <%} else {%>
+                <img
+                  class="form__user-photo"
+                  src="/img/users/<%=user.photo%>"
+                  alt="User Name"
+                />
+
+                <%}%>
                 <input
                   type="file"
                   accept="image/*"

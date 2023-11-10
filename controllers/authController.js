@@ -7,7 +7,7 @@ const { promisify } = require('util');
 const Email = require('./../utils/email');
 const crypto = require('crypto');
 
-const createSendToken = (user, statusCode, res) => {
+exports.createSendToken = (user, statusCode, res, isGoogleLogin) => {
   const token = signToken(user._id);
 
   const cookieOptions = {
@@ -22,16 +22,20 @@ const createSendToken = (user, statusCode, res) => {
   user.password = undefined;
   res.cookie('jwt', token, cookieOptions);
 
-  res.status(statusCode).json({
-    status: 'success',
-    token,
-    data: user,
-  });
+  if (isGoogleLogin) {
+    return res.redirect('/');
+  } else {
+    res.status(statusCode).json({
+      status: 'success',
+      token,
+      data: user,
+    });
+  }
 };
 
 const signToken = (id) => {
   return jwt.sign({ id: id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE,
+    expiresIn: process.env.JWT_EXPIRE * 1000,
   });
 };
 
@@ -127,7 +131,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   const url = `${req.protocol}://${req.get('host')}/me`;
   await new Email(newUser, url).sendWelcome();
 
-  createSendToken(newUser, 201, res);
+  this.createSendToken(newUser, 201, res);
 });
 
 exports.login = async (req, res, next) => {
@@ -149,7 +153,7 @@ exports.login = async (req, res, next) => {
       });
     }
 
-    createSendToken(user, 200, res);
+    this.createSendToken(user, 200, res);
   } catch (err) {
     res.status(400).json({
       status: 'fail',
@@ -217,7 +221,7 @@ exports.forgotPassword = async (req, res, next) => {
       //   text: message,
       // });
 
-      await new Email(user,resetURL).sendPasswordReset()
+      await new Email(user, resetURL).sendPasswordReset();
 
       res.status(200).json({
         status: 'success',
@@ -266,7 +270,7 @@ exports.resetPassword = async (req, res, next) => {
   user.passwordResetExpires = undefined;
   await user.save();
 
-  createSendToken(user, 200, res);
+  this.createSendToken(user, 200, res);
 };
 
 exports.updatePassword = async (req, res, next) => {
@@ -290,7 +294,7 @@ exports.updatePassword = async (req, res, next) => {
     await user.save();
 
     // 4) log user in, send JWT
-    createSendToken(user, 200, res);
+    this.createSendToken(user, 200, res);
   } catch (err) {
     return res.status(403).json({
       status: 'fail',

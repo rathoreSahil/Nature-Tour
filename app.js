@@ -14,6 +14,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const app = express();
 const cookieParser = require('cookie-parser');
+const { googleOauthHandler, googleLogin } = require('./utils/oauth');
 // const bodyParser = require('body-parser');
 // app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -72,5 +73,7 @@ app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
+app.get('/oauth/login/google', googleLogin);
+app.get('/api/v1/sessions/oauth/google', googleOauthHandler);
 
 module.exports = app;
