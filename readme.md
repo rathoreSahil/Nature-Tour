@@ -19,14 +19,8 @@
 - ### Tour Description
 ![Tour Description](/public/project/3.png)
 
-- ### Tour Location
-![Tour Location](/public/project/4.png)
-
 - ### Reviews
 ![Reviews](/public/project/5.png)
-
-- ### Footer
-![Footer](/public/project/6.png)
 
 - ### Profile
 ![Profile](/public/project/7.png)
