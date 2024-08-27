@@ -8,6 +8,30 @@
 > 1. [Rajat Verma](https://github.com/rajatverma311201)
 > 2. [Sahil Rathore](https://github.com/rathoreSahil) 
 <hr />
+
+### Project Images
+- ### Home Page
+![Home Page](/public/project/1.png)
+
+- ### Tour Page
+![Tour Page](/public/project/2.png)
+
+- ### Tour Description
+![Tour Description](/public/project/3.png)
+
+- ### Tour Location
+![Tour Location](/public/project/4.png)
+
+- ### Reviews
+![Reviews](/public/project/5.png)
+
+- ### Footer
+![Footer](/public/project/6.png)
+
+- ### Profile
+![Profile](/public/project/7.png)
+
+
 ### A ficitional Tour booking website made with
 
 > -   NodeJS and ExpressJS
